@@ -1,0 +1,33 @@
+<?php 
+namespace Controller;
+
+
+class Logout
+{
+         public function logout()
+         {
+            $this->renderView('Session');
+            session_destroy();
+            header("Location: ".getUrl()."/");  
+         }
+
+         public function renderView($viewFile){
+             # DIRECTORY SEPARATORS varies in various platforms
+             $ds = DIRECTORY_SEPARATOR;
+  
+             # Root Directory of Project
+             $dir =explode('/index.php', $_SERVER['SCRIPT_FILENAME'])[0];
+  
+             # replace namespace separator with directory separator (prolly not required)
+            
+             # get full name of file containing the required class
+             $file = "{$dir}{$ds}Model{$ds}{$viewFile}.php";
+             
+             # get file if it is readable
+             if (is_readable($file)) {
+                 require_once $file;
+             }
+         }
+}
+
+?>
