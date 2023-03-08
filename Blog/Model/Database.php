@@ -1,23 +1,20 @@
-<?php 
+<?php
 namespace Model;
 
-// Connection Class Making Connection 
-class Database{
+// Connection Class Making Connection
+class Database
+{
 
-    public function getConnection(){
+    public function getConnection()
+    {
         $host = '127.0.0.1:3308';
         $user = 'root';
-        $pass='';
-        $dbname='blog';
-       
+        $pass = '';
+        $dbname = 'blog';
+
         $dsn = "mysql:host=$host;dbname=$dbname";
-      
-        $conn= new  \PDO($dsn, $user, $pass);
+
+        $conn = new \PDO($dsn, $user, $pass);
         return $conn;
-    }   
+    }
 }
-
-
-
-
-?>

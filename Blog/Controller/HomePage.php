@@ -1,53 +1,52 @@
-<?php 
+<?php
 namespace Controller;
 
 use Model\FetchDataHome;
-  
-class HomePage{  
-        /**
-         *   Getting home_view file from view folder here we are putiing just file name of that particular file what we need to use 
-         *       
-         */
-         public function render(){   
-            $this->renderView('header');
-            $this->homeData();
-            // $this->renderView('home_view');
-         }
-        
-         
-         public function homeData()
-         {
-            $object = new FetchDataHome();
-            
-            $data = $object->fetchData();
 
-     echo "
-            
+class HomePage
+{
+    /**
+     *   Getting home_view file from view folder here we are putiing just file name of that particular file what we need to use
+     *
+     */
+    public function render()
+    {
+        $this->renderView('header');
+        $this->homeData();
+        // $this->renderView('home_view');
+    }
+
+    public function homeData()
+    {
+        $object = new FetchDataHome();
+
+        $data = $object->fetchData();
+
+        echo "
+
           <div class='container'>
                <div class='row'>
-                    <div class='col-md-12 col-sm-12'> 
+                    <div class='col-md-12 col-sm-12'>
                          <div id='main-content' class='blog-page'>
                               <div class='container'>
                               <div class='row clearfix'>
             ";
 
+        foreach ($data as $row) {
+            echo "
 
-   foreach($data as $row)
-   {    
-     echo "   
 
-     
-              
+
                   <div class='col-lg-8 col-md-12 left-box'>
 
                       <div class='card single_post'>
                           <div class='body'>
                               <div class='img-post'>
-                                  <img class='d-block img-fluid' src='".$row['Image']."' alt='First slide'>
+                                  <img class='d-block img-fluid' src='" . $row['Image'] . "' alt='First slide'>
                               </div>
-        
-                              <h3><a href='blog-details.html'>".$row['Title']." </a></h3>
-                              <p>".$row['Description']."</p>
+
+                              <h3><a href='blog-details.html'>" . $row['Title'] . " </a></h3>
+                              <p>" . $row['Description'] . "</p>
                           </div>
                           <div class='footer'>
                               <div class='actions'>
@@ -59,40 +58,39 @@ class HomePage{
                                   <li><a href='javascript:void(0);' class='fa fa-comment'>128</a></li>
                               </ul>
                           </div>
-                      </div>            
+                      </div>
                   </div>
 ";
 
-}
+        }
 
-   echo "    
+        echo "
         </div>
       </div>
-     </div>       
-    </div>     
+     </div>
+    </div>
    </div>
-</div>    
+</div>
 ";
-        
-}   
-        
-         public function renderView($viewFile)
-         {
-             # DIRECTORY SEPARATORS varies in various platforms
-             $ds = DIRECTORY_SEPARATOR;
-   
-             # Root Directory of Project
-             $dir =explode('/index.php',$_SERVER['SCRIPT_FILENAME'])[0];
-   
-             # replace namespace separator with directory separator (prolly not required)
-             
-             # get full name of file containing the required class
-             $file = "{$dir}{$ds}view{$ds}{$viewFile}.php";
-              
-              # get file if it is readable
-              if (is_readable($file)) {
-               require_once $file;
-         }
-       }
+
     }
-?>
+
+    public function renderView($viewFile)
+    {
+        # DIRECTORY SEPARATORS varies in various platforms
+        $ds = DIRECTORY_SEPARATOR;
+
+        # Root Directory of Project
+        $dir = explode('/index.php', $_SERVER['SCRIPT_FILENAME'])[0];
+
+        # replace namespace separator with directory separator (prolly not required)
+
+        # get full name of file containing the required class
+        $file = "{$dir}{$ds}view{$ds}{$viewFile}.php";
+
+        # get file if it is readable
+        if (is_readable($file)) {
+            require_once $file;
+        }
+    }
+}
